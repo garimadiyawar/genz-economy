@@ -1,0 +1,23 @@
+query,date,article_count,avg_sentiment,positive_count,negative_count,neutral_count,sentiment_label
+Gen Z economy,2026-04-27,1,0.3818,1,0,0,positive
+Gen Z economy,2026-05-04,4,0.11925,3,1,0,positive
+Gen Z economy,2026-05-11,7,0.21687142857142858,4,2,1,positive
+Gen Z economy,2026-05-18,8,0.10196250000000001,6,2,0,positive
+Gen Z financial stress,2026-04-27,2,-0.58655,0,2,0,negative
+Gen Z financial stress,2026-05-04,6,0.25501666666666667,4,1,1,positive
+Gen Z financial stress,2026-05-18,4,-0.069525,1,2,1,negative
+Gen Z financial stress,2026-05-25,1,-0.1763,0,1,0,negative
+Gen Z housing affordability,2026-04-27,3,-0.5161,0,3,0,negative
+Gen Z housing affordability,2026-05-04,8,0.15712500000000001,5,2,1,positive
+Gen Z housing affordability,2026-05-11,2,-0.02515,0,1,1,neutral
+Gen Z housing affordability,2026-05-18,2,-0.1537,1,1,0,negative
+Gen Z housing affordability,2026-05-25,1,-0.6124,0,1,0,negative
+Gen Z job market,2026-04-27,4,0.274625,2,1,1,positive
+Gen Z job market,2026-05-04,1,-0.719,0,1,0,negative
+Gen Z job market,2026-05-11,4,0.23675,2,1,1,positive
+Gen Z job market,2026-05-18,5,0.20002,3,1,1,positive
+Gen Z job market,2026-05-25,1,0.6124,1,0,0,positive
+Gen Z student debt,2026-04-27,2,0.39289999999999997,1,1,0,positive
+Gen Z student debt,2026-05-04,6,0.23968333333333333,3,2,1,positive
+Gen Z student debt,2026-05-11,4,-0.122675,1,1,2,negative
+Gen Z student debt,2026-05-18,4,-0.475375,0,3,1,negative

@@ -1,0 +1,134 @@
+name: Gen Z Economy — Weekly Data Refresh
+
+on:
+  # Run every Sunday at 6 AM UTC
+  schedule:
+    - cron: '0 6 * * 0'
+
+  # Allow manual trigger from GitHub Actions UI
+  workflow_dispatch:
+    inputs:
+      run_news_only:
+        description: 'Run news/jobs only (faster)'
+        required: false
+        default: 'false'
+        type: boolean
+
+jobs:
+  refresh-data:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    permissions:
+      contents: write
+
+    env:
+      FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+      CENSUS_API_KEY: ${{ secrets.CENSUS_API_KEY }}
+      COLLEGE_SCORECARD_API_KEY: ${{ secrets.COLLEGE_SCORECARD_API_KEY }}
+      NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Verify secrets are configured
+        run: |
+          missing=""
+          [ -z "$FRED_API_KEY" ]                && missing="$missing FRED_API_KEY"
+          [ -z "$CENSUS_API_KEY" ]              && missing="$missing CENSUS_API_KEY"
+          [ -z "$COLLEGE_SCORECARD_API_KEY" ]   && missing="$missing COLLEGE_SCORECARD_API_KEY"
+          if [ -n "$missing" ]; then
+            echo "WARNING: Missing secrets:$missing — affected collectors will be skipped."
+          fi
+          echo "Secrets check complete."
+
+      - name: Create data directories
+        run: mkdir -p data/{raw,processed,exports} logs
+
+      - name: Run FRED collector
+        if: ${{ inputs.run_news_only != 'true' }}
+        run: python src/collectors/fred_collector.py
+
+      - name: Run BLS collector
+        if: ${{ inputs.run_news_only != 'true' }}
+        run: python src/collectors/bls_collector.py
+
+      - name: Run Census collector
+        if: ${{ inputs.run_news_only != 'true' }}
+        run: python src/collectors/census_collector.py
+        continue-on-error: true  # Census API occasionally rate-limits
+
+      - name: Run Education + Housing collector
+        if: ${{ inputs.run_news_only != 'true' }}
+        run: python src/collectors/education_housing_collector.py
+        continue-on-error: true
+
+      - name: Run ETL pipeline
+        if: ${{ inputs.run_news_only != 'true' }}
+        run: python src/etl/pipeline.py
+
+      - name: Run survival score analysis
+        if: ${{ inputs.run_news_only != 'true' }}
+        run: python src/analysis/survival_score.py
+
+      - name: Run ML projections
+        if: ${{ inputs.run_news_only != 'true' }}
+        run: python src/analysis/projections.py
+
+      - name: Run Tableau export
+        if: ${{ inputs.run_news_only != 'true' }}
+        run: python src/etl/export_tableau.py
+
+      - name: Run news parser
+        run: python src/news_parser/news_parser.py
+        continue-on-error: true
+
+      - name: Run job market analyzer
+        run: python src/news_parser/job_market.py
+        continue-on-error: true
+
+      - name: Upload export artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: tableau-exports-${{ github.run_number }}
+          path: data/exports/tableau_*.csv
+          retention-days: 30
+
+      - name: Upload DuckDB database
+        if: ${{ inputs.run_news_only != 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: genz-economy-db-${{ github.run_number }}
+          path: data/genz_economy.duckdb
+          retention-days: 7
+
+      - name: Commit updated data to repo
+        if: ${{ inputs.run_news_only != 'true' }}
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add data/exports/tableau_*.csv
+          if git diff --staged --quiet; then
+            echo "No changes to commit — data unchanged since last run."
+          else
+            git commit -m "Auto-refresh: $(date '+%Y-%m-%d')"
+            git push || { echo "ERROR: git push failed. Check repository write permissions."; exit 1; }
+          fi
+
+      - name: Log completion
+        run: |
+          echo "✓ Pipeline complete at $(date)"
+          echo "Exports generated:"
+          ls -lh data/exports/tableau_*.csv 2>/dev/null || echo "No exports found"

@@ -1,0 +1,30 @@
+# Virtual environment
+venv/
+.venv/
+env/
+
+# API keys — never push these
+.env
+
+# Large data files / database
+data/raw/
+data/processed/
+*.duckdb
+*.parquet
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+# VS Code Local History extension — never commit editor history
+.history/
+
+# Ensure .env is always ignored
+.env

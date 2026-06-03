@@ -1,0 +1,118 @@
+source,title,company,sector,location,work_type,salary_min,salary_max,is_entry_level,degree_requirement,posted_at,tags
+remotive,Data Labeling Specialists,Workada,Technology,Remote,remote,37440.0,45760.0,False,unspecified,2026-05-27,"research, digital content, spreadsheets"
+remotive,Staff Product Engineer (Campinas),LawnStarter,Technology,Remote,remote,80000.0,100000.0,False,unspecified,2026-05-26,"AWS, backend, frontend, php, react"
+remotive,Staff Product Engineer (São Paulo),LawnStarter,Technology,Remote,remote,80000.0,100000.0,False,unspecified,2026-05-21,"AWS, backend, frontend, php, react"
+remotive,Mid/Senior AI Cinematic Video Editor,EverAI,Technology,Remote,remote,41600.0,,False,unspecified,2026-05-19,"excel, video, AI/ML, customer acquisition, graphic design"
+remotive,Paid Media Specialist,Noventra Group Europe,Technology,Remote,remote,65000.0,85000.0,False,unspecified,2026-05-18,"ecommerce, research, advertising, retail, A/B Testing"
+remotive,Senior Independent Software Developer,A.Team,Technology,Remote,remote,187200.0,312000.0,False,unspecified,2026-05-16,"go, wordpress, chat, apple, testing"
+remotive,Senior Independent AI Engineer / Architect,A.Team,Technology,Remote,remote,249600.0,353600.0,False,unspecified,2026-05-16,"go, UI/UX, wordpress, chat, apple"
+remotive,Senior Full-stack React Developer,Lemon.io,Technology,Remote,remote,22880.0,,False,unspecified,2026-05-15,".Net, android, AWS, azure, backend"
+remotive,Tech Lead Full-Stack Rails Engineer,Mitre Media,Technology,Remote,remote,170000.0,200000.0,False,unspecified,2026-05-14,"api, CSS, docker, elasticsearch, fullstack"
+remotive,Business Transformation Lead,Expion Health,Technology,Remote,remote,175000.0,225000.0,False,unspecified,2026-05-13,"api, AI/ML, automation, healthcare, spark"
+remotive,Office Assistant,Coalition Technologies ,Technology,Remote,remote,312000.0,52000.0,True,unspecified,2026-05-11,"CSS, excel, frontend, git, html"
+remotive,Director of Revenue Systems and AI Automation (Offshore) ,Caul Group,Technology,Remote,remote,6072.0,,False,unspecified,2026-05-11,"api, AI/ML, automation, documentation, CRM"
+remotive,iOS Developer,nooro,Technology,Remote,remote,60000.0,130000.0,False,unspecified,2026-05-09,"api, backend, git, ios, security"
+remotive,Inside Sales Contractor,"Credit Wellness, LLC",Technology,Remote,remote,25000.0,35000.0,False,unspecified,2026-05-08,"CRM, google sheets, financial services, Inside Sales"
+remotive,Freelance Writer,IAPWE,Healthcare,Remote,remote,104000.0,156000.0,False,unspecified,2026-05-04,REST
+remotive,Copywriter,Coalition Technologies ,Technology,Remote,remote,20000.0,35000.0,False,unspecified,2026-05-02,"accounting, excel, research, data analysis, bookkeeping"
+remotive,Senior DevOps Engineer,Lemon.io,Technology,Remote,remote,22880.0,,False,unspecified,2026-04-30,".Net, android, AWS, azure, C"
+arbeitnow,Data Analyst,SumUp,Technology,"Cologne, North Rhine-Westphalia, Germany",unspecified,,,False,unspecified,,
+arbeitnow,iOS Engineer - Design System,SumUp,Technology,"Berlin, Germany",unspecified,,,False,unspecified,,
+arbeitnow,Senior Android Engineer - Mobile Platform,SumUp,Technology,"Berlin, Berlin, Germany",unspecified,,,False,unspecified,,
+arbeitnow,Senior Account Manager (m/w/d),Wolt - English,Technology,"Stuttgart, Baden-Württemberg, Germany",unspecified,,,False,unspecified,,
+arbeitnow,Entwicklung einer Brand- und Kommunikationsstrategie für das Rebranding einer B2B-Software im Nonprofit-Sektor.,Linear Service GmbH,Technology,Berlin,remote,,,False,unspecified,,"Remote, Strategic Marketing"
+arbeitnow,Senior Product Manager/in (100% Remote),BlickSolutions GmbH,Technology,Frankfurt am Main,remote,,,False,unspecified,,"Remote, Product Management"
+arbeitnow,Elektriker:in (m/w/d) für Anlagen- und Gebäudetechnik,JobRad Loop,Technology,Kabelsketal,unspecified,,,False,unspecified,,Engineering
+arbeitnow,"Steuerberater (m/w/d) in Flein, auf Wunsch mit Partnerperspektive, gesucht - mindestens 90.000€",Taxtalente.de,Other,Flein,unspecified,,,False,unspecified,,"Directors, Chief Executives"
+arbeitnow,"Steuerberater (m/w/d) in Reinsdorf, auf Wunsch mit Partnerperspektive, gesucht - mindestens 90.000€",Taxtalente.de,Other,Reinsdorf,unspecified,,,False,unspecified,,"Directors, Chief Executives"
+arbeitnow,"Steuerberater (m/w/d) in Bredenbek, auf Wunsch mit Partnerperspektive, gesucht - mindestens 90.000€",Taxtalente.de,Other,Bredenbek,unspecified,,,False,unspecified,,"Directors, Chief Executives"
+arbeitnow,"Steuerberater (m/w/d) in Schopp, auf Wunsch mit Partnerperspektive, gesucht - mindestens 90.000€",Taxtalente.de,Other,Schopp,unspecified,,,False,unspecified,,"Directors, Chief Executives"
+arbeitnow,"Steuerberater (m/w/d) in Neubiberg, auf Wunsch mit Partnerperspektive, gesucht - mindestens 90.000€",Taxtalente.de,Other,Neubiberg,unspecified,,,False,unspecified,,"Directors, Chief Executives"
+arbeitnow,"Steuerberater (m/w/d) in Gross-Umstadt, auf Wunsch mit Partnerperspektive, gesucht - mindestens 90.000€",Taxtalente.de,Other,Gross-Umstadt,unspecified,,,False,unspecified,,"Directors, Chief Executives"
+arbeitnow,"Steuerberater (m/w/d) in Oberottmarshausen, auf Wunsch mit Partnerperspektive, gesucht - mindestens 90.000€",Taxtalente.de,Other,Oberottmarshausen,unspecified,,,False,unspecified,,"Directors, Chief Executives"
+arbeitnow,"Steuerberater (m/w/d) in Lichtenfels, auf Wunsch mit Partnerperspektive, gesucht - mindestens 90.000€",Taxtalente.de,Other,Lichtenfels,unspecified,,,False,unspecified,,"Directors, Chief Executives"
+arbeitnow,Praktikum im Finanzwesen | Finance and Accounting | eCommerce,PROFISHOP GmbH,Technology,Bremen,hybrid,,,False,unspecified,,Finance
+arbeitnow,Ausbildung Kaufleute Marketingkommunikation (all genders),Visual Statements GmbH,Creative,Freiburg im Breisgau,hybrid,,,False,unspecified,,Marketing Assistant
+arbeitnow,Social Media Manager*in,Lyn the Agency GmbH,Creative,Düsseldorf,remote,,,False,unspecified,,Social Media Manager
+arbeitnow,Marketing- und Vetriebsassistenz,SINUS Messtechnik GmbH,Technology,Leipzig,unspecified,,,False,unspecified,,Distribution Marketing
+arbeitnow,AI-Engineer (m/w/d) - remote,Kevin Meyer Consulting GmbH,Technology,Munich,remote,,,False,unspecified,,"Remote, IT"
+arbeitnow,KI-Automation Builder (m/w/d) - Werkstudent oder Freelance · remote,Kevin Meyer Consulting GmbH,Technology,Munich,remote,,,False,unspecified,,"Remote, IT"
+arbeitnow,Tech Content Manager / Online-Redakteur (m/w/d) | Berlin-Mitte | Festanstellung,TenMedia GmbH,Technology,Berlin,unspecified,,,False,unspecified,,Online Marketing
+arbeitnow,People Business Partner (x/f/m) (Fixed-Term Contract),Bonial International GmbH,Technology,Berlin,unspecified,,,False,unspecified,,HR
+arbeitnow,Senior Drilling Systems Engineer / Head of Drilling Systems,Telura GmbH,Technology,Munich,unspecified,10400.0,,False,unspecified,,Engineering
+arbeitnow,Business Development Manager (m/w/d) für wachstumsstarkes Tech-Startup,Vicoland,Creative,Berlin,hybrid,,,False,unspecified,,Business Development
+arbeitnow,Junior Artist Manager / Influencer Manager (m/w/d),Lionflence,Technology,Mülheim,unspecified,,,True,unspecified,,Marketing and Communication
+arbeitnow,Junior Artist Manager / Influencer Manager (m/w/d),Lionflence,Technology,Berlin,unspecified,,,True,unspecified,,Marketing and Communication
+arbeitnow,Artist Manager / Influencer Manager (m/w/d) BERLIN,Lionflence,Technology,Berlin,unspecified,,,False,unspecified,,Marketing and Communication
+arbeitnow,Trainee Artist Manager / Influencer Manager (m/w/d),Lionflence,Technology,Berlin,unspecified,,,False,unspecified,,"Training, Development"
+arbeitnow,Trainee Artist Manager / Influencer Manager (m/w/d),Lionflence,Technology,Mülheim,unspecified,,,False,unspecified,,"Training, Development"
+arbeitnow,Artist Manager / Influencer Manager (m/w/d),Lionflence,Technology,Mülheim,unspecified,,,False,unspecified,,Marketing and Communication
+arbeitnow,(Junior) PR & Social Media Consultant - B2B,Contegy,Creative,Munich,unspecified,,,True,unspecified,,"Public Relations, Corporate Communication"
+arbeitnow,Head of Staff (m/w/d),talenthafen GmbH,Technology,Hamburg,unspecified,,,False,unspecified,,Business Consulting
+arbeitnow,Customer Operations & Field Sales Manager (m/f/d),Japan Management,Other,Düsseldorf,unspecified,,,False,unspecified,,"Management, Team Leader"
+arbeitnow,Performance Marketing Manager (m/w/d),talenthafen GmbH,Technology,Hamburg,unspecified,,,False,unspecified,,Marketing Manager
+arbeitnow,Senior People Manager / HRBP - Production (d/w/m),Reverion GmbH,Technology,Eresing,unspecified,,,False,unspecified,,"Training, Development"
+arbeitnow,Senior Robotics & Machine Learning Engineer (m/f/d) - Fernride GmbH,Quantum- Systems GmbH,Technology,München,unspecified,,,False,unspecified,,"Internet and software, bachelor's degree"
+arbeitnow,IT Projektmanager Software Implementierung (m/w/d),MY Humancapital GmbH,Technology,Munich,unspecified,,,False,unspecified,,Project Management
+arbeitnow,Bilanzbuchhalter & Accounting (m/w/d),CUSTOM CAREERS FACTORY GmbH,Finance,Sonthofen,unspecified,,,False,unspecified,,Controlling
+arbeitnow,Simulationsingenieur Elektrotechnik (m/w/d),MY Humancapital GmbH,Technology,Munich,unspecified,,,False,unspecified,,Engineering
+arbeitnow,Internship Energy Analyst (m/f/d),1KOMMA5˚,Technology,Hamburg,unspecified,,,False,unspecified,,Software Development
+arbeitnow,Working Student Energy Analyst (m/f/d),1KOMMA5˚,Technology,Hamburg,remote,,,False,unspecified,,Software Development
+arbeitnow,Betreuung digitaler Anlagen und Lerninfrastruktur (m/w/d),Landesfachverband Medienbildung Brandenburg (lmb e.V.),Technology,Cottbus,hybrid,,,False,unspecified,,System and Network Administration
+arbeitnow,Softwareentwickler VBA / Microsoft Access (m/w/d),MY Humancapital GmbH,Technology,Munich,unspecified,,,False,unspecified,,Software Development
+arbeitnow,Werkstudent:in - Sales Operations & Automation (m/w/d),trafficdesign GmbH,Creative,Cologne,unspecified,,,False,unspecified,,Business Development
+arbeitnow,Sales Operations & Automation Manager:in (m/w/d),trafficdesign GmbH,Technology,Hamburg,unspecified,,,False,unspecified,,Business Development
+arbeitnow,Creative Strategist - Performance Marketing (m/w/d),trafficdesign GmbH,Technology,Hamburg,unspecified,,,False,unspecified,,Online Marketing
+arbeitnow,Softwareentwickler (m/w/d),Computerra Hard- und Software GmbH,Technology,Wiesbaden,unspecified,,,False,unspecified,,Software Development
+arbeitnow,Teamassistenz / Projektmanagement,olli design,Creative,Hamburg,unspecified,,,False,unspecified,,Graphic Arts and Communication Design
+arbeitnow,IT Leiter,bits&birds GmbH,Technology,Tübingen,unspecified,,,False,unspecified,,IT
+arbeitnow,Marketing Manager (m/w/d),reboVet Veterinär-Fachgroßhandel GmbH und Co. KG,Technology,Bocholt,unspecified,,,False,unspecified,,Marketing Manager
+arbeitnow,(AI) Marketingmanager:in,Einklang,Technology,Cologne,unspecified,,,False,unspecified,,Marketing Manager
+arbeitnow,Sepcialist Controlling & Finance (m/w/d),visionm GmbH - part of Talentor (vormals Kaiser Stähler Rekrutierungsberatung),Finance,Gera,unspecified,,,False,unspecified,,Controlling
+arbeitnow,Product Owner Data Platform (m/w/d),Cordes & Graefe KG,Technology,Stuhr,unspecified,,,False,unspecified,,Business Analyst
+arbeitnow,SAP Integration Architect (m/w/d) / 60% Home Office Anteil,SAPPLIER GmbH,Technology,Mannheim,unspecified,,,False,unspecified,,"SAP/ERP Consulting, Development"
+arbeitnow,(Senior) Recruiting Manager (m/w/d),casavi GmbH,Technology,Munich,remote,,,False,unspecified,,"Remote, Recruitment and Selection"
+arbeitnow,(Senior) Recruiting Manager (m/f/d),casavi GmbH,Technology,Munich,remote,,,False,unspecified,,"Remote, Recruitment and Selection"
+arbeitnow,SAP Integration Consultant (m/w/d) / 60% Home Office Anteil,SAPPLIER GmbH,Technology,Mannheim,unspecified,,,False,unspecified,,"SAP/ERP Consulting, Development"
+arbeitnow,Product Analytics Lead,SumUp,Technology,"Berlin, Berlin, Germany",unspecified,,,False,unspecified,,
+arbeitnow,Senior Territory Sales Manager / Vertriebsmitarbeiter (m/w/d),Wolt - English,Technology,"Berlin, Berlin, Germany",unspecified,,,False,unspecified,,
+arbeitnow,Candidate Experience & Operations Associate (m/w/d),MediSteg GmbH,Technology,Leipzig,remote,,,False,unspecified,,"Remote, HR"
+arbeitnow,Leiter Finanzen (m/w/d),VOLENTUM Deutschland GmbH,Other,Sankt Andreasberg,unspecified,,,False,unspecified,,"Management, Team Leader"
+arbeitnow,Corporate Controller (m/w/d),bits&birds GmbH,Finance,Dresden,unspecified,,,False,unspecified,,Finance
+arbeitnow,Content Creator / Video Editor für Startup Founder Team,CoStore Holding GmbH,Technology,Berlin,unspecified,,,False,unspecified,,Social Media Manager
+arbeitnow,Content Creator / Video Editor für Startup Founder Team,CoStore Holding GmbH,Technology,Berlin,unspecified,,,False,unspecified,,Social Media Manager
+arbeitnow,IKT-Drittparteienrisikomanager (m/w/d),Cashlink Technologies GmbH,Other,Frankfurt am Main,remote,,,False,unspecified,,"Remote, Finance"
+arbeitnow,"Data Analyst (m/w/d) mit Schwerpunkt BI, KPI & AI",bits&birds GmbH,Technology,Dresden,unspecified,,,False,unspecified,,IT
+arbeitnow,Head of IT Europe (m/w/d),MetPro Verpackungs-Service GmbH,Technology,Leonberg,unspecified,,,False,unspecified,,IT
+arbeitnow,"UI/UX Designer, AI-Native (m/w/d) - Remote",ZEP GmbH,Technology,Ditzingen,remote,,,False,unspecified,,"Remote, Product Design, Industrial Design"
+arbeitnow,Praktikant (M/W/D) Online-Redaktion Awards & Events,Callwey GmbH,Creative,Munich,unspecified,,,False,unspecified,,Marketing and Communication
+arbeitnow,Frontend Entwickler (m/w/d),CPU Consulting & Software GmbH,Technology,Munich,unspecified,,,False,unspecified,,Software Development
+arbeitnow,Customer Success - Team Lead (m/w/d),Lassie,Technology,Berlin,remote,156000.0,,False,unspecified,,"Management, Team Leader"
+arbeitnow,(Senior) UI/UX Designer (m/w/d) - App Design / fluege.de,Invia Flights Germany GmbH,Technology,Berlin,unspecified,,,False,unspecified,,Graphic Arts and Communication Design
+arbeitnow,Office Management (m/w/d),Codewerk GmbH,Technology,Karlsruhe,unspecified,,,False,unspecified,,Marketing and Communication
+arbeitnow,Werkstudent:in (M/W/D) Content Creation,Brick GmbH,Retail/Service,Erfurt,unspecified,,,False,unspecified,,Social Media Manager
+arbeitnow,ERP-Softwareentwickler (m/w/d),alphacoders,Technology,Ulm,unspecified,,,False,unspecified,,"SAP/ERP Consulting, Development"
+arbeitnow,Personalsachbearbeiter (m/w/d),Wurst-Basar Konrad Hinsemann GmbH,Other,Ronnenberg,in_person,,,False,unspecified,,HR
+arbeitnow,Senior Customer Success Manager (m/w/d),myScribe GmbH,Technology,Mannheim,remote,,,False,unspecified,,Customer Service
+arbeitnow,Senior Administrator (m/w/d),eepos GmbH,Technology,Wiehl,hybrid,,,False,unspecified,,IT
+arbeitnow,IT-Systemadministrator (m/w/d) in Kiel,klahn.net,Technology,Kiel,unspecified,,,False,unspecified,,IT
+arbeitnow,Customer Success Manager (B2C) (m/w/d) | 100% remote,smartkündigen OHG,Other,Neuss,remote,,,False,unspecified,,"Remote, Customer Service"
+arbeitnow,Creative Designer Remote (m/w/d),FITYES GmbH,Technology,Berlin,remote,,,False,unspecified,,"Remote, Marketing and Communication"
+arbeitnow,Werkstudent Vertrieb / Finanzberatung (m/w/d) – Praxis statt Theorie,Shereen Patzelt,Technology,Chemnitz,remote,,,False,unspecified,,"Finance, high school or equivalent"
+arbeitnow,Entwickler für den Bereich Dokumentenmanagementsystem (m/w/d),COPA Systeme GmbH & Co. KG,Technology,Wesel,unspecified,,,False,unspecified,,"Internet and software, high school coursework"
+arbeitnow,"Rezeption, Empfang, Administration Physiotherapie-Praxis - Vollzeit, Teilzeit",Momenth,Technology,Sindelfingen,unspecified,,,False,unspecified,,Administration
+arbeitnow,Firmenkundenberater (m/w/d),Jobbusters® GmbH,Technology,Munich,unspecified,,,False,unspecified,,Private Banking
+arbeitnow,Kundenberater (m/w/d) Bankkaufmann,Jobbusters® GmbH,Technology,Munich,unspecified,,,False,unspecified,,Private Banking
+arbeitnow,Finanzbuchhalter (m/w/d),Jobbusters® GmbH,Other,Passau,unspecified,,,False,unspecified,,Finance
+arbeitnow,Finanzbuchhalter (m/w/d),Jobbusters® GmbH,Technology,Nuremberg,hybrid,,,False,unspecified,,Finance
+arbeitnow,Buchhalter (m/w/d),Jobbusters® GmbH,Other,Gröbenzell,unspecified,,,False,unspecified,,Finance
+arbeitnow,WEG-Buchhalter (m/w/d),Jobbusters® GmbH,Technology,Munich,unspecified,,,False,unspecified,,Finance
+arbeitnow,Founders Associate: Strategy and Expansion (m/f/d),New Soul,Technology,Berlin,in_person,,,False,unspecified,,Other
+arbeitnow,Area Manager Süd (m/w/d),New Soul,Retail/Service,Berlin,remote,,,False,unspecified,,"Remote, Management and Consulting"
+arbeitnow,Werkstudent (m/w/d) - AI Adoption & Use Case Enablement,XCNT GmbH,Technology,Berlin,remote,,,False,unspecified,,IT
+arbeitnow,Business Analyst (m/w/d) – Agentisierung & AI Automation,Omnora GmbH,Technology,Frankfurt am Main,remote,,,False,unspecified,,Software Development
+arbeitnow,Customer Success Manager (w/m/d),Omnora GmbH,Creative,Frankfurt am Main,unspecified,,,False,unspecified,,Customer Service
+arbeitnow,Performance Marketing Manager (w/m/d),Omnora GmbH,Technology,Frankfurt am Main,unspecified,,,False,unspecified,,Marketing and Communication
+arbeitnow,Account Executive (m/w/d) – B2B SaaS / Enterprise,Omnora GmbH,Technology,Frankfurt am Main,remote,,,False,unspecified,,Business Development
+arbeitnow,Senior Account Executive (m/w/d),Omnora GmbH,Other,Frankfurt am Main,remote,,,False,unspecified,,Business Development
+arbeitnow,Founding AI Engineer (m/w/d),Omnora GmbH,Technology,Frankfurt am Main,unspecified,,,False,unspecified,,Project Management

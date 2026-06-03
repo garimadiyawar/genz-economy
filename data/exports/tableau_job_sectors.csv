@@ -1,0 +1,7 @@
+sector,count,entry_level_pct,remote_pct,median_sal_min,median_sal_max
+Creative,8,12.5,12.5,,
+Finance,3,0.0,0.0,,
+Healthcare,1,0.0,100.0,104000.0,156000.0
+Other,16,0.0,18.8,,
+Retail/Service,2,0.0,50.0,,
+Technology,87,3.4,36.8,62500.0,100000.0

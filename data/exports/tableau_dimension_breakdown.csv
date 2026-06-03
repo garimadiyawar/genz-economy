@@ -1,0 +1,5 @@
+dimension,score,label,weight,date
+cost_burden_score,,Cost Burden,0.25,2025-01-01
+employment_score,74.09677419354828,Employment Quality,0.25,2025-01-01
+wage_score,75.73845493117413,Real Wages,0.2,2025-01-01
+debt_score,0.0,Student Debt,0.15,2025-01-01

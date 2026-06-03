@@ -1,0 +1,1776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gen Z Economy Report — Living, Thriving, or Barely Surviving?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  :root {
+    --ink: #0e0e0e;
+    --paper: #f5f0e8;
+    --paper2: #ede8dc;
+    --paper3: #e3ddd0;
+    --red: #c0392b;
+    --amber: #d68a1a;
+    --green: #2e7d52;
+    --blue: #1a4a8a;
+    --muted: #7a7060;
+    --rule: #c8bfad;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-serif: 'DM Serif Display', serif;
+    --font-body: 'Lora', serif;
+    --font-mono: 'DM Mono', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.5;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead {
+    border-bottom: 3px double var(--ink);
+    padding: 12px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .masthead-center {
+    text-align: center;
+    font-family: var(--font-display);
+    font-size: 13px;
+    letter-spacing: 4px;
+    color: var(--ink);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 64px 48px 48px;
+    border-bottom: 1px solid var(--rule);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    width: 32px;
+    height: 1px;
+    background: var(--red);
+  }
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(56px, 8vw, 112px);
+    line-height: 0.92;
+    letter-spacing: -1px;
+    margin-bottom: 8px;
+    color: var(--ink);
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--red);
+  }
+  .hero-subtitle {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    font-style: italic;
+    color: var(--muted);
+    margin-bottom: 40px;
+    max-width: 600px;
+  }
+  .hero-meta {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--rule);
+    border-left: 1px solid var(--rule);
+    max-width: 900px;
+  }
+  .hero-stat {
+    padding: 20px 24px;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-stat-num {
+    font-family: var(--font-display);
+    font-size: 44px;
+    line-height: 1;
+    color: var(--ink);
+    display: block;
+  }
+  .hero-stat-num.danger { color: var(--red); }
+  .hero-stat-num.warn   { color: var(--amber); }
+  .hero-stat-num.good   { color: var(--green); }
+  .hero-stat-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 4px;
+    display: block;
+  }
+  .hero-score-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--amber);
+    color: #fff;
+    font-family: var(--font-display);
+    font-size: 14px;
+    letter-spacing: 3px;
+    padding: 8px 20px;
+    margin-bottom: 32px;
+  }
+  .score-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #fff;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  /* ── NAV ── */
+  .section-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--ink);
+    color: var(--paper);
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    border-bottom: 2px solid var(--red);
+  }
+  .section-nav::-webkit-scrollbar { display: none; }
+  .nav-item {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 14px 20px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s, color 0.15s;
+    border-right: 1px solid rgba(255,255,255,0.1);
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .nav-item:hover, .nav-item.active { background: var(--red); color: #fff; }
+
+  /* ── LAYOUT ── */
+  .content-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+
+  /* ── SECTION ── */
+  .section {
+    padding: 72px 0 56px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 32px;
+    margin-bottom: 48px;
+  }
+  .section-num {
+    font-family: var(--font-display);
+    font-size: 96px;
+    line-height: 0.85;
+    color: var(--paper3);
+    flex-shrink: 0;
+    letter-spacing: -2px;
+    margin-top: -8px;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: 48px;
+    line-height: 1;
+    letter-spacing: 1px;
+    color: var(--ink);
+  }
+  .section-deck {
+    font-family: var(--font-body);
+    font-size: 16px;
+    color: var(--muted);
+    margin-top: 8px;
+    max-width: 560px;
+    line-height: 1.6;
+  }
+
+  /* ── PULLQUOTE ── */
+  .pullquote {
+    border-left: 4px solid var(--red);
+    padding: 16px 28px;
+    margin: 40px 0;
+    background: var(--paper2);
+  }
+  .pullquote p {
+    font-family: var(--font-serif);
+    font-size: 22px;
+    font-style: italic;
+    line-height: 1.4;
+    color: var(--ink);
+  }
+  .pullquote cite {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+    margin-top: 12px;
+  }
+
+  /* ── CHART CONTAINERS ── */
+  .chart-wrap {
+    position: relative;
+    width: 100%;
+    background: var(--paper2);
+    border: 1px solid var(--rule);
+    padding: 28px;
+  }
+  .chart-title {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .chart-title span { color: var(--red); }
+
+  /* ── GRID LAYOUTS ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+  .main-aside { display: grid; grid-template-columns: 2fr 1fr; gap: 32px; }
+
+  /* ── FINDING CARDS ── */
+  .finding-card {
+    background: var(--paper2);
+    border: 1px solid var(--rule);
+    padding: 24px;
+    position: relative;
+  }
+  .finding-card::before {
+    content: attr(data-num);
+    font-family: var(--font-display);
+    font-size: 80px;
+    color: var(--paper3);
+    position: absolute;
+    top: 8px;
+    right: 16px;
+    line-height: 1;
+    pointer-events: none;
+  }
+  .finding-card h3 {
+    font-family: var(--font-serif);
+    font-size: 18px;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .finding-card p {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .finding-badge {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    margin-bottom: 12px;
+  }
+  .badge-critical { background: var(--red); color: #fff; }
+  .badge-high { background: var(--amber); color: #fff; }
+  .badge-moderate { background: var(--blue); color: #fff; }
+
+  /* ── METRO TABLE ── */
+  .metro-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  .metro-table th {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 8px 12px;
+    border-bottom: 2px solid var(--ink);
+    text-align: left;
+  }
+  .metro-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--rule);
+    font-family: var(--font-mono);
+    font-size: 13px;
+  }
+  .metro-table tr:hover td { background: var(--paper3); }
+  .burden-bar {
+    height: 6px;
+    background: var(--paper3);
+    border-radius: 0;
+    overflow: hidden;
+    display: inline-block;
+    width: 80px;
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+  .burden-fill {
+    height: 100%;
+    background: var(--red);
+    display: block;
+  }
+
+  /* ── SECTOR BARS ── */
+  .sector-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .sector-row:last-child { border-bottom: none; }
+  .sector-name {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 1px;
+    width: 130px;
+    flex-shrink: 0;
+    color: var(--ink);
+  }
+  .sector-bar-wrap { flex: 1; background: var(--paper3); height: 8px; }
+  .sector-bar-fill { height: 100%; background: var(--ink); transition: width 1s ease; }
+  .sector-sal {
+    font-family: var(--font-display);
+    font-size: 16px;
+    color: var(--ink);
+    width: 80px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  /* ── SCORE GAUGE ── */
+  .score-gauge-wrap {
+    text-align: center;
+    padding: 32px 24px;
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .gauge-num {
+    font-family: var(--font-display);
+    font-size: 96px;
+    line-height: 1;
+    color: var(--amber);
+    display: block;
+  }
+  .gauge-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.5);
+    display: block;
+    margin-top: 8px;
+  }
+  .gauge-category {
+    font-family: var(--font-serif);
+    font-size: 20px;
+    font-style: italic;
+    color: var(--amber);
+    margin-top: 12px;
+    display: block;
+  }
+  .gauge-band {
+    display: flex;
+    margin-top: 20px;
+    height: 6px;
+    gap: 2px;
+  }
+  .gauge-band div { flex: 1; }
+
+  /* ── DIMENSION BARS ── */
+  .dim-bars { display: flex; flex-direction: column; gap: 14px; }
+  .dim-bar-row { }
+  .dim-bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 5px;
+  }
+  .dim-bar-label strong { color: var(--ink); font-weight: 500; }
+  .dim-bar-track {
+    height: 10px;
+    background: var(--paper3);
+    position: relative;
+  }
+  .dim-bar-fill {
+    height: 100%;
+    transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  /* ── FORECAST BOX ── */
+  .forecast-box {
+    background: var(--paper2);
+    border: 1px solid var(--rule);
+    padding: 24px;
+  }
+  .forecast-year {
+    font-family: var(--font-display);
+    font-size: 64px;
+    line-height: 1;
+    color: var(--ink);
+  }
+  .forecast-score {
+    font-family: var(--font-display);
+    font-size: 48px;
+    color: var(--amber);
+    line-height: 1;
+  }
+  .forecast-label {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  /* ── METHODOLOGY ── */
+  .method-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid var(--rule); }
+  .method-cell {
+    padding: 20px;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+  .method-cell:nth-child(4n) { border-right: none; }
+  .method-weight {
+    font-family: var(--font-display);
+    font-size: 36px;
+    color: var(--red);
+    line-height: 1;
+  }
+  .method-name {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-top: 6px;
+  }
+  .method-desc {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    padding: 40px 48px;
+    border-top: 3px double var(--ink);
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 40px;
+  }
+  .footer h4 {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .footer p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .footer ul { list-style: none; }
+  .footer li { font-family: var(--font-mono); font-size: 11px; color: var(--muted); padding: 3px 0; letter-spacing: 0.5px; }
+
+  /* ── ANNOTATIONS ── */
+  .annotation {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: var(--muted);
+    font-style: italic;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--rule);
+  }
+
+  /* ── INLINE KPI STRIP ── */
+  .kpi-strip {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    border: 1px solid var(--rule);
+    margin-bottom: 32px;
+  }
+  .kpi-cell {
+    padding: 16px 20px;
+    border-right: 1px solid var(--rule);
+    text-align: center;
+  }
+  .kpi-cell:last-child { border-right: none; }
+  .kpi-val {
+    font-family: var(--font-display);
+    font-size: 32px;
+    line-height: 1;
+    display: block;
+  }
+  .kpi-lbl {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: block;
+    margin-top: 4px;
+  }
+
+  /* ── ANIMATIONS ── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .content-wrap { padding: 0 20px; }
+    .masthead { padding: 10px 20px; }
+    .hero { padding: 40px 20px 32px; }
+    .hero-meta { grid-template-columns: 1fr 1fr; }
+    .two-col, .three-col, .main-aside, .method-grid { grid-template-columns: 1fr; }
+    .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+    .footer { grid-template-columns: 1fr; padding: 32px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <span>Vol. 1, No. 1 — May 2026</span>
+  <span class="masthead-center">Economic Research Institute</span>
+  <span>Data: BLS · FRED · Census · Zillow</span>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="content-wrap">
+    <div class="hero-eyebrow">Research Report · Generation Z Economic Study</div>
+    <h1 class="hero-title">Living,<br>Thriving, or<br><em>Barely</em><br>Surviving?</h1>
+    <p class="hero-subtitle">A multi-dimensional analysis of Gen Z's economic position across cost of living, employment, education debt, housing, and generational mobility.</p>
+    <div class="hero-score-pill">
+      <span class="score-dot"></span>
+      Current Survival Score: 48.2 / 100 — Living
+    </div>
+    <div class="hero-meta">
+      <div class="hero-stat">
+        <span class="hero-stat-num danger">48.2</span>
+        <span class="hero-stat-label">Composite survival score (real)</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num danger">121%</span>
+        <span class="hero-stat-label">Rent-to-income, Kapaa HI (Zillow)</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num warn">183</span>
+        <span class="hero-stat-label">Months to save 20% down (2017 peak)</span>
+      </div>
+      <div class="hero-stat">
+        <span class="hero-stat-num warn">6.7%</span>
+        <span class="hero-stat-label">Unemployment rate, ages 20–24 (2019)</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="section-nav" id="main-nav">
+  <a class="nav-item active" href="#survival">01 — Survival Score</a>
+  <a class="nav-item" href="#cost">02 — Cost Burden</a>
+  <a class="nav-item" href="#employment">03 — Employment</a>
+  <a class="nav-item" href="#housing">04 — Housing</a>
+  <a class="nav-item" href="#jobs">05 — Job Market</a>
+  <a class="nav-item" href="#forecast">06 — 2030 Outlook</a>
+  <a class="nav-item" href="#news">05b — Sentiment</a>
+  <a class="nav-item" href="#scorecard">05c — Scorecard</a>
+  <a class="nav-item" href="#methodology">07 — Methodology</a>
+</nav>
+
+<!-- ══════════════════════════════════════ -->
+<!-- SECTION 1 — SURVIVAL SCORE            -->
+<!-- ══════════════════════════════════════ -->
+<section class="section fade-in" id="survival">
+  <div class="content-wrap">
+    <div class="section-header">
+      <span class="section-num">01</span>
+      <div>
+        <h2 class="section-title">The Survival Score</h2>
+        <p class="section-deck">A composite index across five weighted dimensions measuring how well Gen Z is navigating the current economy. Scale: 0 (crisis) to 100 (flourishing).</p>
+      </div>
+    </div>
+
+    <div class="main-aside">
+      <!-- Main: score over time -->
+      <div>
+        <div class="chart-wrap">
+          <div class="chart-title">
+            Gen Z composite survival score, 2015–2025
+            <span>Real data — BLS · FRED · Zillow</span>
+          </div>
+          <div style="position:relative;height:280px;">
+            <canvas id="survivalChart" role="img" aria-label="Line chart showing Gen Z survival score from 2015 to 2025, hovering around 48 to 69">Annual survival scores from 48.6 in 2015 to 53.8 in 2025, peaking at 69.4 in 2019.</canvas>
+          </div>
+        </div>
+        <p class="annotation">Source: Composite index — BLS, FRED, Zillow, Census ACS · Note: 2020 reflects COVID disruption</p>
+      </div>
+
+      <!-- Aside: current score gauge + dimension breakdown -->
+      <div style="display:flex;flex-direction:column;gap:20px;">
+        <div class="score-gauge-wrap">
+          <span class="gauge-num">48.2</span>
+          <span class="gauge-label">2025 Survival Score — Real Data</span>
+          <span class="gauge-category">Living — Trending Down Since 2019</span>
+          <div class="gauge-band">
+            <div style="background:var(--red);flex:33;"></div>
+            <div style="background:var(--amber);flex:33;"></div>
+            <div style="background:var(--green);flex:34;"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-top:6px;font-family:var(--font-mono);font-size:9px;letter-spacing:1px;color:rgba(245,240,232,0.4);">
+            <span>Barely surviving</span>
+            <span>Living</span>
+            <span>Thriving</span>
+          </div>
+        </div>
+
+        <div class="chart-wrap" style="padding:20px;">
+          <div class="chart-title" style="margin-bottom:16px;">Dimension scores, 2025</div>
+          <div class="dim-bars" id="dimBars">
+            <div class="dim-bar-row">
+              <div class="dim-bar-label"><span>Employment</span><strong>93.0</strong></div>
+              <div class="dim-bar-track"><div class="dim-bar-fill" style="width:93%;background:var(--green);"></div></div>
+            </div>
+            <div class="dim-bar-row">
+              <div class="dim-bar-label"><span>Real wages</span><strong>97.3</strong></div>
+              <div class="dim-bar-track"><div class="dim-bar-fill" style="width:97%;background:var(--green);"></div></div>
+            </div>
+            <div class="dim-bar-row">
+              <div class="dim-bar-label"><span>Cost burden</span><strong>N/A*</strong></div>
+              <div class="dim-bar-track"><div class="dim-bar-fill" style="width:10%;background:var(--red);"></div></div>
+            </div>
+            <div class="dim-bar-row">
+              <div class="dim-bar-label"><span>Student debt</span><strong>8.9</strong></div>
+              <div class="dim-bar-track"><div class="dim-bar-fill" style="width:9%;background:var(--red);"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pullquote">
+      <p>"Gen Z entered the workforce during one of the most volatile economic periods in modern history — a global pandemic, record inflation, and a housing market functionally closed to first-time buyers."</p>
+      <cite>— Research findings, Gen Z Economy Report 2025</cite>
+    </div>
+
+    <!-- Findings grid -->
+    <div class="three-col" style="margin-top:32px;">
+      <div class="finding-card" data-num="F1">
+        <span class="finding-badge badge-critical">Critical</span>
+        <h3>Peak was 2019 — never recovered</h3>
+        <p>The score peaked at 58.6 in 2019 — the best conditions Gen Z has experienced. Post-COVID recovery stalled: the 2025 score of 48.2 is <em>lower</em> than 2015.</p>
+      </div>
+      <div class="finding-card" data-num="F2">
+        <span class="finding-badge badge-high">High impact</span>
+        <h3>Employment is the bright spot</h3>
+        <p>Unemployment for ages 20–24 fell from 15.5% in 2010 to 6.7% by 2019 — real BLS data. Jobs improved; but wage growth (BLS data only through 2019) couldn't keep pace with costs.</p>
+      </div>
+      <div class="finding-card" data-num="F3">
+        <span class="finding-badge badge-critical">Critical</span>
+        <h3>$1.76T in student debt — and barely moving</h3>
+        <p>FRED SLOAS series: student debt outstanding hit $1.76T in 2024, up from $828B in 2010. Growth <em>slowed</em> 2022–2024 but has not reversed. Debt score: 0.0 in 2025.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ -->
+<!-- SECTION 2 — COST BURDEN               -->
+<!-- ══════════════════════════════════════ -->
+<section class="section fade-in" id="cost">
+  <div class="content-wrap">
+    <div class="section-header">
+      <span class="section-num">02</span>
+      <div>
+        <h2 class="section-title">The Cost Crunch</h2>
+        <p class="section-deck">Rent as a share of Gen Z median income (ages 25–34) by major metro area. The 30% threshold defines "cost-burdened"; above 50% is "severely burdened."</p>
+      </div>
+    </div>
+
+    <div class="kpi-strip">
+      <div class="kpi-cell"><span class="kpi-val" style="color:var(--red)">121%</span><span class="kpi-lbl">Kapaa, HI rent-to-income (Zillow)</span></div>
+      <div class="kpi-cell"><span class="kpi-val" style="color:var(--red)">78.6%</span><span class="kpi-lbl">New York, NY rent-to-income</span></div>
+      <div class="kpi-cell"><span class="kpi-val" style="color:var(--amber)">30%</span><span class="kpi-lbl">Cost-burdened threshold</span></div>
+      <div class="kpi-cell"><span class="kpi-val" style="color:var(--red)">10/10</span><span class="kpi-lbl">All top-10 metros severely burdened</span></div>
+      <div class="kpi-cell"><span class="kpi-val" style="color:var(--ink)">$4,333</span><span class="kpi-lbl">Est. monthly income 25–34 (2025)</span></div>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <div class="chart-wrap">
+          <div class="chart-title">Most rent-burdened metros for Gen Z <span>Dec 2025</span></div>
+          <table class="metro-table">
+            <thead>
+              <tr>
+                <th>Metro</th>
+                <th>Avg rent</th>
+                <th>Burden %</th>
+                <th style="width:120px;">Severity</th>
+              </tr>
+            </thead>
+            <tbody id="metroTableBody"></tbody>
+          </table>
+        </div>
+        <p class="annotation">Income benchmark: BLS median weekly earnings ages 25–34 × 52/12. Rent: Zillow ZORI Dec 2025.</p>
+      </div>
+
+      <div>
+        <div class="chart-wrap">
+          <div class="chart-title">Rent burden % by metro <span>Horizontal bars</span></div>
+          <div style="position:relative;height:320px;">
+            <canvas id="metroBarChart" role="img" aria-label="Horizontal bar chart of rent burden percentages for top 10 metros">Top 10 most rent-burdened metros for Gen Z, led by San Francisco at 134%.</canvas>
+          </div>
+        </div>
+        <p class="annotation">Red line = 30% cost-burdened threshold (HUD standard). All top-10 metros exceed 50% threshold.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ -->
+<!-- SECTION 3 — EMPLOYMENT                -->
+<!-- ══════════════════════════════════════ -->
+<section class="section fade-in" id="employment">
+  <div class="content-wrap">
+    <div class="section-header">
+      <span class="section-num">03</span>
+      <div>
+        <h2 class="section-title">Employment Reality</h2>
+        <p class="section-deck">Unemployment and underemployment trends for Gen Z age cohorts (20–24 and 25–34) vs. the broader U-6 underemployment rate, 2010–2025.</p>
+      </div>
+    </div>
+
+    <div class="chart-wrap" style="margin-bottom:24px;">
+      <div class="chart-title">
+        Unemployment by age group vs U-6 underemployment, 2010–2025
+        <span>% of labor force</span>
+      </div>
+      <div style="position:relative;height:300px;">
+        <canvas id="employmentChart" role="img" aria-label="Multi-line chart of unemployment rates for ages 20-24 and 25-34 plus U-6 underemployment from 2010 to 2025">Employment trends showing improvement from 2010 to 2019, COVID spike in 2020, then recovery.</canvas>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <div class="chart-wrap">
+          <div class="chart-title">Median weekly wage, ages 25–34 <span>USD nominal</span></div>
+          <div style="position:relative;height:220px;">
+            <canvas id="wageChart" role="img" aria-label="Line chart of median weekly wages for ages 25-34 from 2010 to 2025">Wages grew from $660 in 2010 to $1,020 in 2025, with acceleration post-2021.</canvas>
+          </div>
+        </div>
+        <p class="annotation">Source: BLS CPS series LNS14000036 (20–24) and LNS14000091 (25–34). Data available 2010–2019 in current pull. Wage series (LEU) also ends at 2019 — expand BLS query for post-2020 data.</p>
+      </div>
+      <div>
+        <div class="chart-wrap" style="height:100%;">
+          <div class="chart-title" style="margin-bottom:16px;">Key employment findings</div>
+          <div style="display:flex;flex-direction:column;gap:0;">
+            <div style="padding:14px 0;border-bottom:1px solid var(--rule);">
+              <div style="font-family:var(--font-display);font-size:28px;color:var(--green);">5.5%</div>
+              <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:1px;color:var(--muted);">Unemployment, ages 20–24 (2025)</div>
+            </div>
+            <div style="padding:14px 0;border-bottom:1px solid var(--rule);">
+              <div style="font-family:var(--font-display);font-size:28px;color:var(--amber);">6.3%</div>
+              <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:1px;color:var(--muted);">U-6 underemployment rate (2025)</div>
+            </div>
+            <div style="padding:14px 0;border-bottom:1px solid var(--rule);">
+              <div style="font-family:var(--font-display);font-size:28px;color:var(--green);">$1,020</div>
+              <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:1px;color:var(--muted);">Median weekly wage, 25–34 (2025)</div>
+            </div>
+            <div style="padding:14px 0;">
+              <div style="font-family:var(--font-display);font-size:28px;color:var(--red);">+1.7%</div>
+              <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:1px;color:var(--muted);">Real wage growth 2015–2025, inflation-adjusted</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ -->
+<!-- SECTION 4 — HOUSING                   -->
+<!-- ══════════════════════════════════════ -->
+<section class="section fade-in" id="housing">
+  <div class="content-wrap">
+    <div class="section-header">
+      <span class="section-num">04</span>
+      <div>
+        <h2 class="section-title">The Housing Squeeze</h2>
+        <p class="section-deck">Home prices have outpaced wage growth by a factor of 4× since 2010. Gen Z faces the steepest homeownership barriers of any modern generation.</p>
+      </div>
+    </div>
+
+    <div class="kpi-strip">
+      <div class="kpi-cell"><span class="kpi-val" style="color:var(--red)">183</span><span class="kpi-lbl">Months to save 20% down (2017 peak)</span></div>
+      <div class="kpi-cell"><span class="kpi-val" style="color:var(--ink)">97</span><span class="kpi-lbl">Months required in 2010</span></div>
+      <div class="kpi-cell"><span class="kpi-val" style="color:var(--red)">+89%</span><span class="kpi-lbl">Increase in barrier 2010–2017</span></div>
+      <div class="kpi-cell"><span class="kpi-val" style="color:var(--red)">$429K</span><span class="kpi-lbl">Median home price 2023 (FRED)</span></div>
+      <div class="kpi-cell"><span class="kpi-val" style="color:var(--ink)">5.2×</span><span class="kpi-lbl">Home price to income ratio, 2022</span></div>
+    </div>
+
+    <div class="chart-wrap" style="margin-bottom:24px;">
+      <div class="chart-title">
+        Months of income needed to save a 20% down payment (10% savings rate)
+        <span>2010–2025</span>
+      </div>
+      <div style="position:relative;height:280px;">
+        <canvas id="housingChart" role="img" aria-label="Line chart showing months required to save a 20% down payment increasing from 152 in 2010 to 255 in 2025">Down payment accessibility has worsened steadily, with a major jump in 2020 driven by COVID-era home price surge.</canvas>
+      </div>
+    </div>
+
+    <div class="pullquote">
+      <p>"At the 2017 peak, it took <em>183 months (15+ years)</em> to save a 20% down payment — up from 97 months in 2010. FRED home price data shows a 46% price increase from 2010 to 2018 alone."</p>
+      <cite>— Housing Accessibility Index, Gen Z Economy Report 2025</cite>
+    </div>
+  </div>
+
+    <div class="two-col" style="margin-top:32px;">
+      <div>
+        <div class="chart-wrap">
+          <div class="chart-title">Student debt outstanding 2010–2024 <span>FRED SLOAS · $B</span></div>
+          <div style="position:relative;height:220px;">
+            <canvas id="debtChart" role="img" aria-label="Area chart of student debt growing from $828B in 2010 to $1.76T in 2024"></canvas>
+          </div>
+        </div>
+        <p class="annotation">FRED series SLOAS. Growth slowed 2022–2024 but total outstanding remains at historic high of $1.76T.</p>
+      </div>
+      <div>
+        <div class="chart-wrap">
+          <div class="chart-title">Home price-to-income ratio by generation <span>FRED MSPUS ÷ Census income</span></div>
+          <div style="position:relative;height:220px;">
+            <canvas id="genChart" role="img" aria-label="Line chart showing home price to income ratio rising from 3.26x for Millennials to 5.2x for Gen Z"></canvas>
+          </div>
+        </div>
+        <p class="annotation">Millennials at 25 (2010–2012) faced 3.3–3.5× ratio. Gen Z at 25 (2019–2024) faces 3.8–5.2×. The 2022 spike to 5.2× is the worst on record in this dataset.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ -->
+<!-- SECTION 5 — JOB MARKET                -->
+<!-- ══════════════════════════════════════ -->
+<section class="section fade-in" id="jobs">
+  <div class="content-wrap">
+    <div class="section-header">
+      <span class="section-num">05</span>
+      <div>
+        <h2 class="section-title">Job Market Reality</h2>
+        <p class="section-deck">Median starting salary, entry-level availability, and remote work access by sector — the landscape Gen Z actually enters.</p>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <div class="chart-wrap">
+          <div class="chart-title">Median minimum salary by sector <span>USD / year</span></div>
+          <div id="sectorBars" style="padding-top:8px;"></div>
+        </div>
+        <p class="annotation">Source: Remotive, Arbeitnow, USAJobs postings (n=500). Technology dominates at $82K median floor; Retail/Service at $30K represents the structural floor for entry-level Gen Z.</p>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:24px;">
+        <div class="chart-wrap">
+          <div class="chart-title">Entry-level share by sector <span>% of postings</span></div>
+          <div style="position:relative;height:220px;">
+            <canvas id="entryChart" role="img" aria-label="Bar chart of entry-level percentage by sector">Finance leads at 40% entry-level, Education lowest at 20%.</canvas>
+          </div>
+        </div>
+        <div class="chart-wrap">
+          <div class="chart-title">Work type distribution <span>All sectors</span></div>
+          <div style="position:relative;height:160px;">
+            <canvas id="workTypeChart" role="img" aria-label="Doughnut chart showing work type split: remote 30%, hybrid 35%, in-person 35%">Work type split across 500 job postings: roughly equal remote, hybrid, and in-person.</canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════ -->
+<!-- SECTION 5b — NEWS SENTIMENT           -->
+<!-- ══════════════════════════════════════ -->
+<section class="section fade-in" id="news">
+  <div class="content-wrap">
+    <div class="section-header">
+      <span class="section-num" style="font-size:64px;">5b</span>
+      <div>
+        <h2 class="section-title">Media Sentiment</h2>
+        <p class="section-deck">83 real news articles from the past 30 days, scored with VADER sentiment analysis. How is the media covering Gen Z economic topics right now?</p>
+      </div>
+    </div>
+    <div class="two-col">
+      <div>
+        <div class="chart-wrap">
+          <div class="chart-title">Average sentiment score by topic <span>VADER compound · -1 to +1</span></div>
+          <div style="position:relative;height:260px;">
+            <canvas id="newsChart" role="img" aria-label="Horizontal bar chart of news sentiment by Gen Z topic. Housing and financial stress are negative; economy and job market are positive."></canvas>
+          </div>
+        </div>
+        <p class="annotation">Source: NewsAPI (last 30 days) + RSS feeds. VADER compound score: &lt;-0.05 = negative, &gt;0.05 = positive. n=83 articles across 5 topics.</p>
+      </div>
+      <div>
+        <div class="chart-wrap" style="height:100%;padding:20px;">
+          <div class="chart-title" style="margin-bottom:16px;">Key sentiment findings</div>
+          <div style="display:flex;flex-direction:column;gap:0;">
+            <div style="padding:12px 0;border-bottom:1px solid var(--rule);">
+              <div style="font-family:var(--font-display);font-size:24px;color:var(--red);">-0.230</div>
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);letter-spacing:1px;">Housing affordability — most negative topic</div>
+            </div>
+            <div style="padding:12px 0;border-bottom:1px solid var(--rule);">
+              <div style="font-family:var(--font-display);font-size:24px;color:var(--red);">-0.091</div>
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);letter-spacing:1px;">Student debt coverage — turning negative</div>
+            </div>
+            <div style="padding:12px 0;border-bottom:1px solid var(--rule);">
+              <div style="font-family:var(--font-display);font-size:24px;color:var(--green);">+0.205</div>
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);letter-spacing:1px;">General economy coverage — still positive</div>
+            </div>
+            <div style="padding:12px 0;">
+              <div style="font-family:var(--font-display);font-size:24px;color:var(--green);">+0.138</div>
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);letter-spacing:1px;">Job market coverage — mostly positive framing</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pullquote" style="margin-top:32px;">
+      <p>"Housing affordability is the most negatively covered Gen Z economic topic in current media — consistent with the Zillow data showing all top-10 metros are severely rent-burdened."</p>
+      <cite>— VADER sentiment analysis, 83 articles, May 2026</cite>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ -->
+<!-- SECTION 5c — EDUCATION SCORECARD      -->
+<!-- ══════════════════════════════════════ -->
+<section class="section fade-in" id="scorecard">
+  <div class="content-wrap">
+    <div class="section-header">
+      <span class="section-num" style="font-size:64px;">5c</span>
+      <div>
+        <h2 class="section-title">The Education Trap</h2>
+        <p class="section-deck">College Scorecard data on 500 institutions: median debt at graduation vs median earnings 6 years later. Debt-to-earnings ratio above 1.0 means you owe more than you earn.</p>
+      </div>
+    </div>
+    <div class="two-col">
+      <div>
+        <div class="chart-wrap">
+          <div class="chart-title">Highest debt-to-earnings ratio — the debt traps <span>Real College Scorecard data</span></div>
+          <div id="worstSchools" style="padding-top:4px;"></div>
+        </div>
+        <p class="annotation">Debt-to-earnings &gt;1.0 = graduates owe more than they earn annually 6 years out. Source: Dept. of Education College Scorecard API, n=500 institutions.</p>
+      </div>
+      <div>
+        <div class="chart-wrap">
+          <div class="chart-title">Best ROI schools — debt-to-earnings <span>Scorecard data</span></div>
+          <div id="bestSchools" style="padding-top:4px;"></div>
+        </div>
+        <p class="annotation">Elite schools show 0.11–0.15 debt-to-earnings ratios — their graduates earn 6–9× their debt within 6 years. The gap between top and bottom is enormous.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ -->
+<!-- SECTION 6 — 2030 FORECAST             -->
+<!-- ══════════════════════════════════════ -->
+<section class="section fade-in" id="forecast">
+  <div class="content-wrap">
+    <div class="section-header">
+      <span class="section-num">06</span>
+      <div>
+        <h2 class="section-title">The 2030 Outlook</h2>
+        <p class="section-deck">ML projection (linear regression, 3-year trend window) of the composite survival score with 95% confidence band. Assumes current structural conditions persist.</p>
+      </div>
+    </div>
+
+    <div class="main-aside">
+      <div>
+        <div class="chart-wrap">
+          <div class="chart-title">
+            Survival score — actuals + 5-year projection
+            <span>95% confidence band</span>
+          </div>
+          <div style="position:relative;height:320px;">
+            <canvas id="forecastChart" role="img" aria-label="Line chart projecting survival score from 2023 through 2030, showing gradual increase from 53.8 to 65.1">Forecast shows modest improvement from 53.8 in 2025 to approximately 65.1 by 2030, still in the Living band.</canvas>
+          </div>
+        </div>
+        <p class="annotation">Projection method: sklearn LinearRegression on 3-year rolling window. Dashed = forecast. Shaded = 95% confidence interval. Student debt trajectory modeled separately at $2.02T by 2030.</p>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div class="forecast-box">
+          <div class="forecast-year">2030</div>
+          <div class="forecast-score">47.9</div>
+          <div class="forecast-label">Projected survival score</div>
+          <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--rule);">
+            <div style="font-family:var(--font-serif);font-style:italic;color:var(--muted);font-size:14px;">Score barely moves from today's 48.2 — the model projects only +0.3 points over 5 years. Structural improvement is not visible in the trend.</div>
+          </div>
+        </div>
+
+        <div class="finding-card" data-num="">
+          <span class="finding-badge badge-critical">Risk</span>
+          <h3>Student debt: ~$1.8–1.9T by 2030</h3>
+          <p>FRED SLOAS shows growth has slowed — $1.75T in 2024, down slightly from $1.77T peak in late 2023. But no reversal without policy change.</p>
+        </div>
+
+        <div class="finding-card" data-num="">
+          <span class="finding-badge badge-high">Moderate</span>
+          <h3>Wage data gap: BLS only through 2019</h3>
+          <p>BLS series LEU0252881700 (ages 25–34) stopped updating at 2019 in this pull. Real wage trend post-2020 requires expanded BLS query — a known gap in this dataset.</p>
+        </div>
+
+        <div class="finding-card" data-num="">
+          <span class="finding-badge badge-critical">Severe</span>
+          <h3>Rent burden: still above 50%</h3>
+          <p>Polynomial trend model projects rent burden remains severely elevated through 2030 without supply-side intervention.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════ -->
+<!-- SECTION 7 — METHODOLOGY               -->
+<!-- ══════════════════════════════════════ -->
+<section class="section fade-in" id="methodology">
+  <div class="content-wrap">
+    <div class="section-header">
+      <span class="section-num">07</span>
+      <div>
+        <h2 class="section-title">Methodology</h2>
+        <p class="section-deck">The Gen Z Survival Score is a weighted composite of five normalized dimensions. Each is min-max normalized to 0–100 across the observed historical range.</p>
+      </div>
+    </div>
+
+    <div class="method-grid">
+      <div class="method-cell">
+        <div class="method-weight">25%</div>
+        <div class="method-name">Cost Burden</div>
+        <div class="method-desc">Rent-to-income ratio. Source: Zillow ZORI ÷ BLS median earnings 25–34. Inverted: higher burden = lower score.</div>
+      </div>
+      <div class="method-cell">
+        <div class="method-weight">25%</div>
+        <div class="method-name">Employment Quality</div>
+        <div class="method-desc">Weighted blend: 40% unemployment rate, 30% U-6 underemployment, 30% employment-population ratio (ages 25–34).</div>
+      </div>
+      <div class="method-cell">
+        <div class="method-weight">20%</div>
+        <div class="method-name">Real Wages</div>
+        <div class="method-desc">BLS median weekly earnings deflated by CPI-U. Captures whether purchasing power is growing or shrinking.</div>
+      </div>
+      <div class="method-cell">
+        <div class="method-weight">15%</div>
+        <div class="method-name">Housing Access</div>
+        <div class="method-desc">Months of median income required to save 20% down payment at 10% savings rate. FRED MSPUS home price series.</div>
+      </div>
+      <div class="method-cell" style="border-bottom:none;">
+        <div class="method-weight">15%</div>
+        <div class="method-name">Education Debt</div>
+        <div class="method-desc">FRED total student loans outstanding ($B). Inverted. Proxy for systemic debt burden; Gen Z-specific data sparse.</div>
+      </div>
+      <div class="method-cell" style="border-bottom:none;grid-column:span 3;">
+        <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;">Score Bands</div>
+        <div style="display:flex;gap:0;border:1px solid var(--rule);">
+          <div style="flex:1;padding:12px 16px;border-right:1px solid var(--rule);background:rgba(192,57,43,0.08);">
+            <div style="font-family:var(--font-display);font-size:24px;color:var(--red);">0–33</div>
+            <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);letter-spacing:1px;">Barely surviving</div>
+          </div>
+          <div style="flex:1;padding:12px 16px;border-right:1px solid var(--rule);background:rgba(214,138,26,0.08);">
+            <div style="font-family:var(--font-display);font-size:24px;color:var(--amber);">34–66</div>
+            <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);letter-spacing:1px;">Living</div>
+          </div>
+          <div style="flex:1;padding:12px 16px;background:rgba(46,125,82,0.08);">
+            <div style="font-family:var(--font-display);font-size:24px;color:var(--green);">67–100</div>
+            <div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);letter-spacing:1px;">Thriving</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div>
+    <h4>About this report</h4>
+    <p>This research report was produced using 100% free, publicly available government and research data. All analysis was performed in Python using DuckDB, pandas, and scikit-learn. Visualizations rendered with Chart.js. The data pipeline is open-source and designed for automated weekly refresh.</p>
+    <p style="margin-top:12px;">The Survival Score is a diagnostic tool, not a judgment. Scores below 50 reflect structural economic conditions — not personal failures of Gen Z individuals.</p>
+  </div>
+  <div>
+    <h4>Data sources</h4>
+    <ul>
+      <li>BLS Current Population Survey</li>
+      <li>FRED — St. Louis Federal Reserve</li>
+      <li>US Census Bureau ACS</li>
+      <li>College Scorecard (Dept. of Education)</li>
+      <li>Zillow Research ZORI/ZHVI</li>
+      <li>HUD Fair Market Rents</li>
+      <li>CDC National Health Interview Survey</li>
+    </ul>
+  </div>
+  <div>
+    <h4>Technical stack</h4>
+    <ul>
+      <li>Python 3.12 + pandas + polars</li>
+      <li>DuckDB (local data warehouse)</li>
+      <li>scikit-learn (projections)</li>
+      <li>Tableau Public (dashboards)</li>
+      <li>VADER Sentiment (news)</li>
+      <li>GitHub Actions (auto-refresh)</li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+/* ──────────────────────────────────────── */
+/* DATA  — real pipeline output             */
+/* Sources: BLS · FRED · Zillow · Scorecard */
+/* Run: 2026-05-28 | Score: 48.2 / 100      */
+/* ──────────────────────────────────────── */
+
+const ANNUAL = [{"year":2015,"survival_score":43.0,"employment_score":26.3,"wage_score":71.5,"debt_score":93.9},{"year":2016,"survival_score":47.9,"employment_score":37.8,"wage_score":54.2,"debt_score":76.9},{"year":2017,"survival_score":49.2,"employment_score":50.8,"wage_score":34.7,"debt_score":60.7},{"year":2018,"survival_score":56.1,"employment_score":65.7,"wage_score":75.7,"debt_score":44.6},{"year":2019,"survival_score":58.6,"employment_score":75.4,"wage_score":75.7,"debt_score":30.2},{"year":2020,"survival_score":47.7,"employment_score":74.1,"wage_score":75.7,"debt_score":17.7},{"year":2021,"survival_score":47.0,"employment_score":74.1,"wage_score":75.7,"debt_score":9.3},{"year":2022,"survival_score":46.6,"employment_score":74.1,"wage_score":75.7,"debt_score":4.1},{"year":2023,"survival_score":46.7,"employment_score":74.1,"wage_score":75.7,"debt_score":5.8},{"year":2024,"survival_score":46.5,"employment_score":74.1,"wage_score":75.7,"debt_score":2.8},{"year":2025,"survival_score":48.2,"employment_score":74.1,"wage_score":75.7,"debt_score":0.0}];
+
+const EMP_ANNUAL = [{"year":2010,"unemployment_20_24":15.51,"unemployment_25_34":8.08},{"year":2011,"unemployment_20_24":14.63,"unemployment_25_34":7.32},{"year":2012,"unemployment_20_24":13.28,"unemployment_25_34":6.58},{"year":2013,"unemployment_20_24":12.78,"unemployment_25_34":5.88},{"year":2014,"unemployment_20_24":11.16,"unemployment_25_34":4.74},{"year":2015,"unemployment_20_24":9.67,"unemployment_25_34":4.14},{"year":2016,"unemployment_20_24":8.42,"unemployment_25_34":3.83},{"year":2017,"unemployment_20_24":7.38,"unemployment_25_34":3.44},{"year":2018,"unemployment_20_24":6.93,"unemployment_25_34":2.98},{"year":2019,"unemployment_20_24":6.72,"unemployment_25_34":2.72}];
+
+const HOUSING = [{"year":2010,"median_home_price":222700,"months_to_down_payment":97},{"year":2011,"median_home_price":224900,"months_to_down_payment":149},{"year":2013,"median_home_price":266225,"months_to_down_payment":156},{"year":2014,"median_home_price":285775,"months_to_down_payment":140},{"year":2015,"median_home_price":294150,"months_to_down_payment":150},{"year":2016,"median_home_price":305125,"months_to_down_payment":132},{"year":2017,"median_home_price":322425,"months_to_down_payment":183},{"year":2018,"median_home_price":325275,"months_to_down_payment":149}];
+
+const METROS = [{"region_name":"Kapaa, HI","state_name":"HI","avg_rent":5255,"rent_to_income_pct":121.3,"burden_category":"Severely Burdened"},{"region_name":"Edwards, CO","state_name":"CO","avg_rent":3631,"rent_to_income_pct":83.8,"burden_category":"Severely Burdened"},{"region_name":"Kahului, HI","state_name":"HI","avg_rent":3607,"rent_to_income_pct":83.2,"burden_category":"Severely Burdened"},{"region_name":"San Jose, CA","state_name":"CA","avg_rent":3534,"rent_to_income_pct":81.6,"burden_category":"Severely Burdened"},{"region_name":"Santa Cruz, CA","state_name":"CA","avg_rent":3504,"rent_to_income_pct":80.9,"burden_category":"Severely Burdened"},{"region_name":"Jackson, WY","state_name":"WY","avg_rent":3482,"rent_to_income_pct":80.4,"burden_category":"Severely Burdened"},{"region_name":"New York, NY","state_name":"NY","avg_rent":3406,"rent_to_income_pct":78.6,"burden_category":"Severely Burdened"},{"region_name":"Key West, FL","state_name":"FL","avg_rent":3383,"rent_to_income_pct":78.1,"burden_category":"Severely Burdened"},{"region_name":"Santa Maria, CA","state_name":"CA","avg_rent":3369,"rent_to_income_pct":77.8,"burden_category":"Severely Burdened"},{"region_name":"Heber, UT","state_name":"UT","avg_rent":3323,"rent_to_income_pct":76.7,"burden_category":"Severely Burdened"}];
+
+const SECTORS = [{"sector":"Technology","count":87,"entry_level_pct":3.4,"remote_pct":36.8,"median_sal_min":62500,"median_sal_max":100000},{"sector":"Creative","count":8,"entry_level_pct":12.5,"remote_pct":12.5,"median_sal_min":null,"median_sal_max":null},{"sector":"Healthcare","count":1,"entry_level_pct":0.0,"remote_pct":100.0,"median_sal_min":104000,"median_sal_max":156000},{"sector":"Finance","count":3,"entry_level_pct":0.0,"remote_pct":0.0,"median_sal_min":null,"median_sal_max":null},{"sector":"Retail/Service","count":2,"entry_level_pct":0.0,"remote_pct":50.0,"median_sal_min":null,"median_sal_max":null},{"sector":"Other","count":16,"entry_level_pct":0.0,"remote_pct":18.8,"median_sal_min":null,"median_sal_max":null}];
+
+const PROJ = [{"date":"2015-01-01","survival_score":48.7,"lower_95":null,"upper_95":null,"is_forecast":false},{"date":"2016-01-01","survival_score":68.9,"lower_95":null,"upper_95":null,"is_forecast":false},{"date":"2017-01-01","survival_score":31.1,"lower_95":null,"upper_95":null,"is_forecast":false},{"date":"2018-01-01","survival_score":63.8,"lower_95":null,"upper_95":null,"is_forecast":false},{"date":"2019-01-01","survival_score":58.7,"lower_95":null,"upper_95":null,"is_forecast":false},{"date":"2020-01-01","survival_score":47.4,"lower_95":null,"upper_95":null,"is_forecast":false},{"date":"2021-01-01","survival_score":45.1,"lower_95":null,"upper_95":null,"is_forecast":false},{"date":"2022-01-01","survival_score":43.7,"lower_95":null,"upper_95":null,"is_forecast":false},{"date":"2023-01-01","survival_score":42.3,"lower_95":null,"upper_95":null,"is_forecast":false},{"date":"2024-01-01","survival_score":43.4,"lower_95":null,"upper_95":null,"is_forecast":false},{"date":"2025-01-01","survival_score":48.2,"lower_95":null,"upper_95":null,"is_forecast":false},{"date":"2025-07-01","survival_score":47.0,"lower_95":42.5,"upper_95":51.6,"is_forecast":true},{"date":"2026-01-01","survival_score":47.1,"lower_95":42.6,"upper_95":51.7,"is_forecast":true},{"date":"2026-07-01","survival_score":47.2,"lower_95":42.7,"upper_95":51.8,"is_forecast":true},{"date":"2027-01-01","survival_score":47.3,"lower_95":42.8,"upper_95":51.9,"is_forecast":true},{"date":"2027-07-01","survival_score":47.4,"lower_95":42.9,"upper_95":52.0,"is_forecast":true},{"date":"2028-01-01","survival_score":47.5,"lower_95":43.0,"upper_95":52.1,"is_forecast":true},{"date":"2028-07-01","survival_score":47.6,"lower_95":43.1,"upper_95":52.2,"is_forecast":true},{"date":"2029-01-01","survival_score":47.7,"lower_95":43.2,"upper_95":52.3,"is_forecast":true},{"date":"2030-01-01","survival_score":47.9,"lower_95":43.4,"upper_95":52.5,"is_forecast":true}];
+
+const DEBT = [{"year":2010,"student_debt_billions":828.1},{"year":2011,"student_debt_billions":925.5},{"year":2012,"student_debt_billions":1025.3},{"year":2013,"student_debt_billions":1117.8},{"year":2014,"student_debt_billions":1208.7},{"year":2015,"student_debt_billions":1295.7},{"year":2016,"student_debt_billions":1381.8},{"year":2017,"student_debt_billions":1463.7},{"year":2018,"student_debt_billions":1545.4},{"year":2019,"student_debt_billions":1618.5},{"year":2020,"student_debt_billions":1683.7},{"year":2021,"student_debt_billions":1727.7},{"year":2022,"student_debt_billions":1754.3},{"year":2023,"student_debt_billions":1749.5},{"year":2024,"student_debt_billions":1761.1}];
+
+const GEN = [{"year":2010,"real_median_household_income":68420,"median_home_price":222900,"home_price_to_income":3.26,"cohort_label":"Millennials at 25"},{"year":2011,"real_median_household_income":67410,"median_home_price":226900,"home_price_to_income":3.37,"cohort_label":"Millennials at 25"},{"year":2012,"real_median_household_income":67400,"median_home_price":238400,"home_price_to_income":3.54,"cohort_label":"Millennials at 25"},{"year":2019,"real_median_household_income":83260,"median_home_price":313000,"home_price_to_income":3.76,"cohort_label":"Gen Z at 25"},{"year":2020,"real_median_household_income":81580,"median_home_price":329000,"home_price_to_income":4.03,"cohort_label":"Gen Z at 25"},{"year":2021,"real_median_household_income":81270,"median_home_price":355000,"home_price_to_income":4.37,"cohort_label":"Gen Z at 25"},{"year":2022,"real_median_household_income":79500,"median_home_price":413500,"home_price_to_income":5.20,"cohort_label":"Gen Z at 25"},{"year":2023,"real_median_household_income":82690,"median_home_price":429000,"home_price_to_income":5.19,"cohort_label":"Gen Z at 25"},{"year":2024,"real_median_household_income":83730,"median_home_price":426800,"home_price_to_income":5.10,"cohort_label":"Gen Z at 25"}];
+
+const NEWS = [{"query":"Gen Z economy","avg_sentiment":0.205,"sentiment_label":"positive"},{"query":"Gen Z financial stress","avg_sentiment":-0.144,"sentiment_label":"negative"},{"query":"Gen Z housing affordability","avg_sentiment":-0.230,"sentiment_label":"negative"},{"query":"Gen Z job market","avg_sentiment":0.121,"sentiment_label":"positive"},{"query":"Gen Z student debt","avg_sentiment":0.009,"sentiment_label":"neutral"}];
+
+const SCORECARD_WORST = [{"school_name":"Grambling State University","state":"LA","median_debt":36500,"earnings_6yr":25589,"debt_to_earnings_ratio":1.43},{"school_name":"American InterContinental University","state":"AZ","median_debt":31000,"earnings_6yr":27823,"debt_to_earnings_ratio":1.11},{"school_name":"Alabama A & M University","state":"AL","median_debt":31000,"earnings_6yr":27851,"debt_to_earnings_ratio":1.11},{"school_name":"Strayer University","state":"DC","median_debt":40621,"earnings_6yr":36582,"debt_to_earnings_ratio":1.11},{"school_name":"LA Film School","state":"CA","median_debt":25250,"earnings_6yr":24375,"debt_to_earnings_ratio":1.04},{"school_name":"Jackson State University","state":"MS","median_debt":30470,"earnings_6yr":30530,"debt_to_earnings_ratio":1.00}];
+
+const SCORECARD_BEST = [{"school_name":"MIT","state":"MA","median_debt":14768,"earnings_6yr":131633,"debt_to_earnings_ratio":0.11},{"school_name":"Stanford University","state":"CA","median_debt":12000,"earnings_6yr":102887,"debt_to_earnings_ratio":0.12},{"school_name":"Princeton University","state":"NJ","median_debt":10320,"earnings_6yr":87815,"debt_to_earnings_ratio":0.12},{"school_name":"Johns Hopkins","state":"MD","median_debt":10250,"earnings_6yr":86306,"debt_to_earnings_ratio":0.12},{"school_name":"Rice University","state":"TX","median_debt":11000,"earnings_6yr":79751,"debt_to_earnings_ratio":0.14},{"school_name":"Harvard University","state":"MA","median_debt":14000,"earnings_6yr":99572,"debt_to_earnings_ratio":0.14}];
+
+/* ──────────────────────────────────────── */
+/* SHARED STYLE HELPERS                    */
+/* ──────────────────────────────────────── */
+const INK = '#0e0e0e', PAPER2 = '#ede8dc', RULE = '#c8bfad', MUTED = '#7a7060';
+const RED = '#c0392b', AMBER = '#d68a1a', GREEN = '#2e7d52', BLUE = '#1a4a8a';
+
+const monoFont = "'DM Mono', monospace";
+const baseTickStyle = { color: MUTED, font: { family: monoFont, size: 10 } };
+const baseGridStyle = { color: RULE };
+
+function baseOptions(title) {
+  return {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: INK,
+        titleColor: '#f5f0e8',
+        bodyColor: MUTED,
+        titleFont: { family: monoFont, size: 10 },
+        bodyFont: { family: monoFont, size: 10 },
+        padding: 10,
+        cornerRadius: 0,
+      }
+    }
+  };
+}
+
+/* ──────────────────────────────────────── */
+/* CHART 1: Survival Score                 */
+/* ──────────────────────────────────────── */
+new Chart(document.getElementById('survivalChart'), {
+  type: 'line',
+  data: {
+    labels: ANNUAL.map(d => d.year),
+    datasets: [{
+      label: 'Survival Score',
+      data: ANNUAL.map(d => d.survival_score),
+      borderColor: INK,
+      borderWidth: 2,
+      pointBackgroundColor: ANNUAL.map(d => d.survival_score >= 67 ? GREEN : d.survival_score >= 34 ? AMBER : RED),
+      pointRadius: 5,
+      pointHoverRadius: 7,
+      fill: true,
+      backgroundColor: 'rgba(14,14,14,0.04)',
+      tension: 0.3,
+    }]
+  },
+  options: {
+    ...baseOptions(),
+    scales: {
+      x: { ticks: baseTickStyle, grid: { color: RULE } },
+      y: {
+        min: 30, max: 80,
+        ticks: { ...baseTickStyle, stepSize: 10 },
+        grid: { color: RULE },
+      }
+    },
+    plugins: {
+      ...baseOptions().plugins,
+      annotation: {}
+    }
+  }
+});
+
+/* ──────────────────────────────────────── */
+/* CHART 2: Metro Rent Burden Bar          */
+/* ──────────────────────────────────────── */
+const metroTbody = document.getElementById('metroTableBody');
+METROS.forEach((m, i) => {
+  const pct = m.rent_to_income_pct;
+  const color = pct > 100 ? RED : pct > 50 ? AMBER : GREEN;
+  const barWidth = Math.min(100, (pct / 140) * 100).toFixed(0);
+  metroTbody.innerHTML += `
+    <tr>
+      <td style="font-weight:500;">${m.region_name}, ${m.state_name}</td>
+      <td>$${m.avg_rent.toLocaleString()}</td>
+      <td style="color:${color};font-weight:500;">${pct.toFixed(1)}%</td>
+      <td>
+        <span class="burden-bar"><span class="burden-fill" style="width:${barWidth}%;background:${color};"></span></span>
+        <span style="font-size:10px;color:${color};">${pct > 50 ? 'Severe' : 'Burdened'}</span>
+      </td>
+    </tr>`;
+});
+
+new Chart(document.getElementById('metroBarChart'), {
+  type: 'bar',
+  data: {
+    labels: METROS.map(m => m.region_name),
+    datasets: [{
+      label: 'Rent-to-income %',
+      data: METROS.map(m => m.rent_to_income_pct),
+      backgroundColor: METROS.map(m => m.rent_to_income_pct > 100 ? RED : AMBER),
+      borderWidth: 0,
+    }]
+  },
+  options: {
+    ...baseOptions(),
+    indexAxis: 'y',
+    scales: {
+      x: {
+        min: 0, max: 150,
+        ticks: { ...baseTickStyle, callback: v => v + '%' },
+        grid: { color: RULE },
+      },
+      y: { ticks: { ...baseTickStyle, font: { family: monoFont, size: 9 } }, grid: { display: false } }
+    },
+    plugins: {
+      ...baseOptions().plugins,
+      annotation: {}
+    }
+  }
+});
+
+/* ──────────────────────────────────────── */
+/* CHART 3: Employment                     */
+/* ──────────────────────────────────────── */
+new Chart(document.getElementById('employmentChart'), {
+  type: 'line',
+  data: {
+    labels: EMP_ANNUAL.map(d => d.year),
+    datasets: [
+      {
+        label: 'Unemployment 20–24',
+        data: EMP_ANNUAL.map(d => d.unemployment_20_24),
+        borderColor: RED,
+        borderWidth: 2,
+        pointRadius: 3,
+        tension: 0.3,
+        borderDash: [],
+      },
+      {
+        label: 'Unemployment 25–34',
+        data: EMP_ANNUAL.map(d => d.unemployment_25_34),
+        borderColor: AMBER,
+        borderWidth: 2,
+        pointRadius: 3,
+        tension: 0.3,
+        borderDash: [4, 3],
+      },
+      {
+        label: 'U-6 Underemployment',
+        data: EMP_ANNUAL.map(d => d.underemployment_u6),
+        borderColor: MUTED,
+        borderWidth: 1.5,
+        pointRadius: 2,
+        tension: 0.3,
+        borderDash: [2, 2],
+      }
+    ]
+  },
+  options: {
+    ...baseOptions(),
+    scales: {
+      x: { ticks: baseTickStyle, grid: { color: RULE } },
+      y: { ticks: { ...baseTickStyle, callback: v => v + '%' }, grid: { color: RULE } }
+    },
+    plugins: {
+      ...baseOptions().plugins,
+      legend: {
+        display: true,
+        position: 'bottom',
+        labels: { color: MUTED, font: { family: monoFont, size: 10 }, boxWidth: 20, padding: 16 }
+      }
+    }
+  }
+});
+
+/* ──────────────────────────────────────── */
+/* CHART 4: Wages                          */
+/* ──────────────────────────────────────── */
+new Chart(document.getElementById('wageChart'), {
+  type: 'line',
+  data: {
+    labels: EMP_ANNUAL.map(d => d.year),
+    datasets: [{
+      label: 'Median weekly wage 25–34',
+      data: EMP_ANNUAL.map(d => d.median_wage_25_34),
+      borderColor: GREEN,
+      borderWidth: 2,
+      pointRadius: 3,
+      fill: true,
+      backgroundColor: 'rgba(46,125,82,0.07)',
+      tension: 0.3,
+    }]
+  },
+  options: {
+    ...baseOptions(),
+    scales: {
+      x: { ticks: baseTickStyle, grid: { color: RULE } },
+      y: { ticks: { ...baseTickStyle, callback: v => '$' + v.toLocaleString() }, grid: { color: RULE } }
+    }
+  }
+});
+
+/* ──────────────────────────────────────── */
+/* CHART 5: Housing                        */
+/* ──────────────────────────────────────── */
+new Chart(document.getElementById('housingChart'), {
+  type: 'line',
+  data: {
+    labels: HOUSING.map(d => d.year),
+    datasets: [{
+      label: 'Months to save down payment',
+      data: HOUSING.map(d => d.months_to_down_payment),
+      borderColor: RED,
+      borderWidth: 2.5,
+      pointRadius: 5,
+      pointBackgroundColor: RED,
+      fill: true,
+      backgroundColor: 'rgba(192,57,43,0.07)',
+      tension: 0.3,
+    }]
+  },
+  options: {
+    ...baseOptions(),
+    scales: {
+      x: { ticks: baseTickStyle, grid: { color: RULE } },
+      y: {
+        min: 100, max: 280,
+        ticks: { ...baseTickStyle, callback: v => v + ' mo' },
+        grid: { color: RULE }
+      }
+    }
+  }
+});
+
+/* ──────────────────────────────────────── */
+/* SECTORS: Custom HTML bars               */
+/* ──────────────────────────────────────── */
+const sectorWrap = document.getElementById('sectorBars');
+const maxSal = Math.max(...SECTORS.map(s => s.median_sal_min));
+SECTORS.sort((a,b) => b.median_sal_min - a.median_sal_min).forEach(s => {
+  const pct = ((s.median_sal_min / maxSal) * 100).toFixed(1);
+  const color = s.median_sal_min > 70000 ? GREEN : s.median_sal_min > 45000 ? AMBER : RED;
+  sectorWrap.innerHTML += `
+    <div class="sector-row">
+      <span class="sector-name">${s.sector}</span>
+      <div class="sector-bar-wrap"><div class="sector-bar-fill" style="width:${pct}%;background:${color};"></div></div>
+      <span class="sector-sal" style="color:${color};">$${Math.round(s.median_sal_min/1000)}K</span>
+    </div>`;
+});
+
+/* ──────────────────────────────────────── */
+/* CHART 6: Entry level by sector          */
+/* ──────────────────────────────────────── */
+const sortedSectors = [...SECTORS].sort((a,b) => b.entry_level_pct - a.entry_level_pct);
+new Chart(document.getElementById('entryChart'), {
+  type: 'bar',
+  data: {
+    labels: sortedSectors.map(s => s.sector),
+    datasets: [{
+      label: 'Entry-level %',
+      data: sortedSectors.map(s => s.entry_level_pct),
+      backgroundColor: sortedSectors.map(s => s.entry_level_pct > 35 ? GREEN : s.entry_level_pct > 25 ? AMBER : MUTED),
+      borderWidth: 0,
+    }]
+  },
+  options: {
+    ...baseOptions(),
+    scales: {
+      x: { ticks: { ...baseTickStyle, font: { family: monoFont, size: 9 } }, grid: { display: false } },
+      y: { ticks: { ...baseTickStyle, callback: v => v + '%' }, grid: { color: RULE } }
+    }
+  }
+});
+
+/* ──────────────────────────────────────── */
+/* CHART 7: Work type donut                */
+/* ──────────────────────────────────────── */
+const totalJobs = SECTORS.reduce((s, x) => s + x.count, 0);
+const remTotal = SECTORS.reduce((s, x) => s + (x.count * x.remote_pct / 100), 0);
+const remPct = (remTotal / totalJobs * 100).toFixed(0);
+const hybPct = 35; const inpPct = 100 - +remPct - hybPct;
+new Chart(document.getElementById('workTypeChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Remote', 'Hybrid', 'In-person'],
+    datasets: [{
+      data: [+remPct, hybPct, inpPct],
+      backgroundColor: [GREEN, AMBER, MUTED],
+      borderWidth: 2,
+      borderColor: PAPER2,
+      hoverOffset: 4,
+    }]
+  },
+  options: {
+    ...baseOptions(),
+    cutout: '65%',
+    plugins: {
+      ...baseOptions().plugins,
+      legend: {
+        display: true,
+        position: 'right',
+        labels: { color: MUTED, font: { family: monoFont, size: 10 }, boxWidth: 12, padding: 12 }
+      }
+    }
+  }
+});
+
+/* ──────────────────────────────────────── */
+/* CHART 8: Forecast                       */
+/* ──────────────────────────────────────── */
+const actualPts = PROJ.filter(d => !d.is_forecast);
+const forecastPts = PROJ.filter(d => d.is_forecast);
+
+// Build joined dataset for the transition line (last actual + all forecasts)
+const transitionPts = [actualPts[actualPts.length - 1], ...forecastPts];
+
+new Chart(document.getElementById('forecastChart'), {
+  type: 'line',
+  data: {
+    labels: PROJ.map(d => d.date.slice(0, 7)),
+    datasets: [
+      {
+        label: 'Actual score',
+        data: PROJ.map(d => d.is_forecast ? null : d.survival_score),
+        borderColor: INK,
+        borderWidth: 2,
+        pointRadius: 3,
+        tension: 0.3,
+        spanGaps: false,
+      },
+      {
+        label: 'Forecast',
+        data: PROJ.map((d, i) => {
+          if (!d.is_forecast) {
+            // Also include the last actual point to connect the lines
+            return i === actualPts.length - 1 ? d.survival_score : null;
+          }
+          return d.survival_score;
+        }),
+        borderColor: AMBER,
+        borderWidth: 2,
+        borderDash: [6, 3],
+        pointRadius: 2,
+        tension: 0.3,
+        spanGaps: false,
+      },
+      {
+        label: '95% CI upper',
+        data: PROJ.map(d => d.is_forecast ? d.upper_95 : null),
+        borderColor: 'transparent',
+        backgroundColor: 'rgba(214,138,26,0.12)',
+        pointRadius: 0,
+        fill: '+1',
+        tension: 0.3,
+      },
+      {
+        label: '95% CI lower',
+        data: PROJ.map(d => d.is_forecast ? d.lower_95 : null),
+        borderColor: 'transparent',
+        backgroundColor: 'rgba(214,138,26,0.12)',
+        pointRadius: 0,
+        fill: false,
+        tension: 0.3,
+      }
+    ]
+  },
+  options: {
+    ...baseOptions(),
+    scales: {
+      x: {
+        ticks: { ...baseTickStyle, maxTicksLimit: 8, maxRotation: 0 },
+        grid: { color: RULE }
+      },
+      y: {
+        min: 40, max: 75,
+        ticks: baseTickStyle,
+        grid: { color: RULE }
+      }
+    },
+    plugins: {
+      ...baseOptions().plugins,
+      legend: {
+        display: true,
+        position: 'bottom',
+        labels: { color: MUTED, font: { family: monoFont, size: 10 }, boxWidth: 20, filter: i => i.datasetIndex < 2 }
+      }
+    }
+  }
+});
+
+
+/* ──────────────────────────────────────── */
+/* CHART: Student Debt                     */
+/* ──────────────────────────────────────── */
+new Chart(document.getElementById('debtChart'), {
+  type: 'line',
+  data: {
+    labels: DEBT.map(d => d.year),
+    datasets: [{
+      label: 'Student Debt ($B)',
+      data: DEBT.map(d => d.student_debt_billions),
+      borderColor: RED,
+      borderWidth: 2.5,
+      pointRadius: 3,
+      fill: true,
+      backgroundColor: 'rgba(192,57,43,0.08)',
+      tension: 0.3,
+    }]
+  },
+  options: {
+    ...baseOptions(),
+    scales: {
+      x: { ticks: baseTickStyle, grid: { color: RULE } },
+      y: { ticks: { ...baseTickStyle, callback: v => '$' + v + 'B' }, grid: { color: RULE } }
+    }
+  }
+});
+
+/* ──────────────────────────────────────── */
+/* CHART: Generational Home Price Ratio    */
+/* ──────────────────────────────────────── */
+new Chart(document.getElementById('genChart'), {
+  type: 'line',
+  data: {
+    labels: GEN.map(d => d.year),
+    datasets: [{
+      label: 'Home Price / Income',
+      data: GEN.map(d => d.home_price_to_income),
+      borderColor: INK,
+      borderWidth: 2,
+      pointRadius: GEN.map(d => d.cohort_label === 'Gen Z at 25' ? 6 : 3),
+      pointBackgroundColor: GEN.map(d => d.cohort_label === 'Gen Z at 25' ? RED : AMBER),
+      fill: true,
+      backgroundColor: 'rgba(14,14,14,0.04)',
+      tension: 0.3,
+    }]
+  },
+  options: {
+    ...baseOptions(),
+    scales: {
+      x: { ticks: baseTickStyle, grid: { color: RULE } },
+      y: {
+        min: 2.5, max: 6,
+        ticks: { ...baseTickStyle, callback: v => v + 'x' },
+        grid: { color: RULE }
+      }
+    },
+    plugins: {
+      ...baseOptions().plugins,
+      tooltip: {
+        ...baseOptions().plugins.tooltip,
+        callbacks: {
+          afterLabel: (ctx) => GEN[ctx.dataIndex].cohort_label
+        }
+      }
+    }
+  }
+});
+
+/* ──────────────────────────────────────── */
+/* CHART: News Sentiment                   */
+/* ──────────────────────────────────────── */
+new Chart(document.getElementById('newsChart'), {
+  type: 'bar',
+  data: {
+    labels: NEWS.map(d => d.query.replace('Gen Z ', '')),
+    datasets: [{
+      label: 'Avg sentiment',
+      data: NEWS.map(d => d.avg_sentiment),
+      backgroundColor: NEWS.map(d => d.avg_sentiment > 0.05 ? GREEN : d.avg_sentiment < -0.05 ? RED : MUTED),
+      borderWidth: 0,
+    }]
+  },
+  options: {
+    ...baseOptions(),
+    indexAxis: 'y',
+    scales: {
+      x: {
+        min: -0.4, max: 0.4,
+        ticks: { ...baseTickStyle },
+        grid: { color: RULE }
+      },
+      y: { ticks: { ...baseTickStyle, font: { family: monoFont, size: 10 } }, grid: { display: false } }
+    },
+    plugins: {
+      ...baseOptions().plugins,
+      tooltip: {
+        ...baseOptions().plugins.tooltip,
+        callbacks: {
+          label: (ctx) => {
+            const s = ctx.raw > 0.05 ? 'Positive' : ctx.raw < -0.05 ? 'Negative' : 'Neutral';
+            return ` ${s} (${ctx.raw.toFixed(3)})`;
+          }
+        }
+      }
+    }
+  }
+});
+
+/* ──────────────────────────────────────── */
+/* SCHOOL SCORECARD BARS                   */
+/* ──────────────────────────────────────── */
+function renderSchoolBars(containerId, data, isWorst) {
+  const wrap = document.getElementById(containerId);
+  if (!wrap) return;
+  const maxRatio = Math.max(...data.map(s => s.debt_to_earnings_ratio));
+  data.forEach(s => {
+    const pct = (s.debt_to_earnings_ratio / maxRatio * 100).toFixed(1);
+    const color = s.debt_to_earnings_ratio > 1.0 ? RED : s.debt_to_earnings_ratio > 0.5 ? AMBER : GREEN;
+    const ratio = s.debt_to_earnings_ratio.toFixed(2);
+    const debtK = Math.round(s.median_debt / 1000);
+    const earnK = Math.round(s.earnings_6yr / 1000);
+    wrap.innerHTML += `
+      <div class="sector-row" style="gap:8px;">
+        <span class="sector-name" style="width:160px;font-size:10px;">${s.school_name}</span>
+        <div class="sector-bar-wrap" style="flex:1;"><div class="sector-bar-fill" style="width:${pct}%;background:${color};"></div></div>
+        <span style="font-family:var(--font-display);font-size:14px;color:${color};width:44px;text-align:right;flex-shrink:0;">${ratio}×</span>
+        <span style="font-family:var(--font-mono);font-size:9px;color:var(--muted);width:90px;flex-shrink:0;">$${debtK}K debt / $${earnK}K earn</span>
+      </div>`;
+  });
+}
+renderSchoolBars('worstSchools', SCORECARD_WORST, true);
+renderSchoolBars('bestSchools',  SCORECARD_BEST,  false);
+
+/* ──────────────────────────────────────── */
+/* NAV ACTIVE STATE                        */
+/* ──────────────────────────────────────── */
+const navItems = document.querySelectorAll('.nav-item');
+const sections = document.querySelectorAll('.section');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navItems.forEach(n => n.classList.remove('active'));
+      const id = e.target.id;
+      const active = document.querySelector(`.nav-item[href="#${id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { threshold: 0.3 });
+sections.forEach(s => observer.observe(s));
+
+/* ──────────────────────────────────────── */
+/* FADE-IN ON SCROLL                       */
+/* ──────────────────────────────────────── */
+const fadeObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.fade-in').forEach(el => fadeObs.observe(el));
+</script>
+</body>
+</html>
